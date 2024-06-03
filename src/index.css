@@ -10,6 +10,9 @@
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
 
+    --constructive: 120 84.2% 30%;
+    --constructive-foreground: 0 0% 98%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
 
@@ -41,6 +44,9 @@
 
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
+
+    --constructive: 120 84.2% 30%;
+    --constructive-foreground: 0 0% 98%;
 
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
