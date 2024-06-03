@@ -31,7 +31,6 @@ const Block = () => {
                     <Label htmlFor='data' className='w-[150px]'>Data:</Label>
                     <Textarea id='data' name='data' className='h-6' />
                 </div>
-                <InputGroup label='Data:' id='data' type='text' />
                 <InputGroup label='Previous Hash:' id='previous-hash' type='text' disabled />
                 <InputGroup label='Hash:' id='hash' type='text' disabled />
             </CardContent>
