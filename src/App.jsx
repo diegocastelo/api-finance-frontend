@@ -27,7 +27,7 @@ function App() {
 
   return (
     <Dialog>
-      <header className="fixed text-center w-screen bg-white shadow-md pb-4">
+      <header className="fixed top-0 text-center w-screen bg-white shadow-md pb-4">
         <h1 className="mt-4 mb-2 text-3xl font-semibold tracking-tight">
           Blockchain & Financial Application
         </h1>
@@ -38,8 +38,8 @@ function App() {
           </Button>
         </DialogTrigger>
       </header>
-      <main className="h-screen flex justify-center items-center">
-        <div className='flex flex-wrap justify-center gap-4 mt-56'>
+      <main className="flex justify-center items-center mt-[150px]">
+        <div className='flex flex-wrap justify-center gap-4 '>
           <Block />
           <Block />
           <Block />
