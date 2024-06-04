@@ -5,16 +5,15 @@ export const useTransactions = () => {
     const [error, setError] = useState(null);
 
     const getTransactions = async () => {
-        let transactions;
         setError(null)
 
-        await axios.get("http://localhost:3000/transactions")
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => {
-                setError(error);
-            });
+        try {
+            const response = await axios.get("http://localhost:3000/transactions")
+
+            return response.data
+        } catch (error) {
+            setError(error)
+        }
     }
 
     const addTransaction = async (transaction) => {

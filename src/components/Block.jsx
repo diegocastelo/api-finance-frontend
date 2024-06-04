@@ -1,4 +1,3 @@
-import React from 'react'
 import InputGroup from './InputGroup'
 import {
     Card,
@@ -11,7 +10,6 @@ import {
 import { Button } from './ui/button'
 import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { Label } from './ui/label'
-import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 
 const Block = () => {
