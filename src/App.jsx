@@ -108,8 +108,8 @@ function App() {
                 </DialogHeader>
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
-                    <Label>Type:</Label>
-                    <Select value={transaction.type} onValueChange={(value) => setTransaction({ ...transaction, type: value })}>
+                    <Label htmlFor='type'>Type:</Label>
+                    <Select id='type' name='type' value={transaction.type} onValueChange={(value) => setTransaction({ ...transaction, type: value })}>
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Type" />
                       </SelectTrigger>
@@ -120,8 +120,8 @@ function App() {
                     </Select>
                   </div>
                   <div>
-                    <Label>Amount:</Label>
-                    <Input type="number" step={0.1} placeholder="Amount" className="w-[180px]" name="amount" value={transaction.value} onChange={(e) => setTransaction({ ...transaction, value: parseFloat(e.target.value) })} />
+                    <Label htmlFor="amount">Amount:</Label>
+                    <Input type="number" step={0.1} placeholder="Amount" className="w-[180px]" name="amount" id="amount" value={transaction.value} onChange={(e) => setTransaction({ ...transaction, value: parseFloat(e.target.value) })} />
                   </div>
                   <DialogFooter>
                     <DialogClose asChild>
