@@ -22,11 +22,45 @@ import {
 import { Label } from './components/ui/label'
 import { Input } from './components/ui/input'
 
+import { useTransactions } from './hooks/useTransactions'
+import { useEffect, useState } from 'react'
 
 function App() {
+  const { getTransactions, addTransaction, getBalance, error } = useTransactions()
+  const [open, setOpen] = useState(false)
+  const [transactions, setTransactions] = useState({})
+  const [transaction, setTransaction] = useState({
+    type: '',
+    value: '',
+  })
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    if (transaction.type && transaction.value > 0) {
+      try {
+        const result = await addTransaction(transaction)
+        const balance = await getBalance()
+        console.log("Transaction added:", result, "Balance:", balance)
+      } catch (err) {
+        console.error("Error adding transaction:", err)
+      }
+    } else {
+      console.error("Invalid transaction data:", transaction)
+    }
+
+
+
+    setTransaction({
+      type: '',
+      value: '',
+    })
+    setOpen(false)
+  }
+
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <header className="fixed top-0 text-center w-screen bg-white shadow-md pb-4">
         <h1 className="mt-4 mb-2 text-3xl font-semibold tracking-tight">
           Blockchain & Financial Application
@@ -64,10 +98,10 @@ function App() {
             Please fill in the details below to add a new transaction.
           </DialogDescription>
         </DialogHeader>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <Label>Type:</Label>
-            <Select>
+            <Select value={transaction.type} onValueChange={(value) => setTransaction({ ...transaction, type: value })}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
@@ -79,7 +113,15 @@ function App() {
           </div>
           <div>
             <Label>Amount:</Label>
-            <Input type="number" step={0.1} placeholder="Amount" className="w-[180px]" />
+            <Input
+              type="number"
+              step={0.1}
+              placeholder="Amount"
+              className="w-[180px]"
+              name="amount"
+              value={transaction.value}
+              onChange={(e) => setTransaction({ ...transaction, value: parseFloat(e.target.value) })}
+            />
           </div>
           <DialogFooter>
             <DialogClose asChild>
