@@ -1,6 +1,6 @@
 import Block from './components/Block'
 import { Button } from './components/ui/button'
-import { CountdownTimerIcon, PlusIcon } from '@radix-ui/react-icons'
+import { CountdownTimerIcon, PlusIcon, UpdateIcon } from '@radix-ui/react-icons'
 import {
   Dialog,
   DialogClose,
@@ -36,11 +36,14 @@ import { useTransactions } from './hooks/useTransactions'
 import { useState, useEffect } from 'react'
 import TransactionsTable from './components/TransactionsTable'
 import Blocks from './components/Blocks'
+import { useBlockchain } from './hooks/useBlockchain'
 
 function App() {
   const { getTransactions, addTransaction, getBalance, error } = useTransactions()
+  const { generateBlock, getBlockchain } = useBlockchain()
   const [open, setOpen] = useState(false)
   const [transactions, setTransactions] = useState(null)
+  const [blockchain, setBlockchain] = useState(null)
   const [balance, setBalance] = useState(null)
   const [transaction, setTransaction] = useState({
     type: '',
@@ -51,8 +54,8 @@ function App() {
     const loadTransactions = async () => {
       try {
         const fetchedTransactions = await getTransactions()
-        const balance =await getBalance()
-  
+        const balance = await getBalance()
+
         setTransactions(fetchedTransactions)
         setBalance(balance)
       } catch (err) {
@@ -60,6 +63,17 @@ function App() {
       }
     }
 
+    const loadBlockchain = async () => {
+      try {
+        const blockchain = await getBlockchain()
+        setBlockchain(blockchain)
+      } catch (err) {
+        console.error("Error fetching blockchain:", err)
+      }
+    }
+
+
+    loadBlockchain()
     loadTransactions()
   }, [])
 
@@ -86,6 +100,13 @@ function App() {
       value: '',
     })
     setOpen(false)
+  }
+
+  const handleGenerateBlock = async (e) => {
+    e.preventDefault()
+
+    const block = await generateBlock(transactions.transactions)
+    setBlockchain(await getBlockchain())
   }
 
   return (
@@ -143,16 +164,20 @@ function App() {
                 <SheetHeader>
                   <SheetTitle>Transactions History</SheetTitle>
                   <SheetDescription>
-                    <TransactionsTable data={transactions} balance={balance}/>
+                    <TransactionsTable data={transactions} balance={balance} />
                   </SheetDescription>
                 </SheetHeader>
               </SheetContent>
             </Sheet>}
+            <Button variant='secondary' onClick={handleGenerateBlock}>
+              <UpdateIcon className="mr-2" />
+              Generate block
+            </Button>
           </div>
         </div>
       </header>
       <main className="flex justify-center mt-[150px]">
-        <Blocks />
+        {blockchain && <Blocks data={blockchain}/>}
       </main>
     </>
   )

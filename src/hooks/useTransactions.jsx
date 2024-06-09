@@ -8,7 +8,7 @@ export const useTransactions = () => {
         setError(null)
 
         try {
-            const response = await axios.get("http://localhost:3000/transactions")
+            const response = await axios.get("http://localhost:3001/transactions")
 
             return response.data
         } catch (error) {
@@ -20,7 +20,7 @@ export const useTransactions = () => {
         setError(null)
 
         try {
-            const response = await axios.post("http://localhost:3000/transactions", JSON.stringify(transaction), {
+            const response = await axios.post("http://localhost:3001/transactions", JSON.stringify(transaction), {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -33,7 +33,7 @@ export const useTransactions = () => {
 
     const getBalance = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/balance")
+            const response = await axios.get("http://localhost:3001/balance")
             return response.data
         } catch (error) {
             setError(error)

@@ -22,7 +22,7 @@ const TransactionsTable = ({ data, balance }) => {
         <TableBody>
           {data.transactions.map((transaction, index) => (
             <TableRow key={index}>
-              <TableCell className='py-2'>{index + 1}</TableCell>
+              <TableCell className='py-2'>{transaction.id}</TableCell>
               <TableCell className='capitalize py-2'>{transaction.type}</TableCell>
               <TableCell className='font-medium py-2'>${transaction.value}</TableCell>
             </TableRow>
